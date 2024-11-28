@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/ActivitiesProducts.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/Activity.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/AvgProducts.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/BiggestSingleNumber.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/Cinema.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/CountSalaryCategories.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/Courses.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/CustomerReferee.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/CustomersProducts.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/EmplBonus.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/EmployeeReports.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/EmployeeWindow.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/EmployeesWhosLeft.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/EmployyeDepartment.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/ExchangeSeats.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/FixNames.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/Followers.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/FoodDelivery.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/Logs.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/Machines.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/Managers.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/MovieRating.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/Patients.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/Persons.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/ProductPriceGivenDate.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/ProductSales.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/ProductsOrders.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/ProjectEmployees.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/QualityAndPercentage.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/RecursivePersonsToTheBus.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/SecondHighestSalary.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/Signups.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/StudentsNSubjects.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/Teachers.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/Transactions.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/Triangle.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/UserActivity.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/UsersContest.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/ValidEmails.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/greatestsasha/training/leetcode/sql/Visitors.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/schema.sql" dialect="PostgreSQL" />
+  </component>
+</project>
