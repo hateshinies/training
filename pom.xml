@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>greatest.sasha</groupId>
+    <artifactId>training</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.proc>full</maven.compiler.proc>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <r2dbc-postgresql.version>1.0.7.RELEASE</r2dbc-postgresql.version>
+        <spring-boot.version>3.4.0</spring-boot.version>
+        <micrometer.version>1.14.1</micrometer.version>
+        <postgresql.version>42.7.4</postgresql.version>
+        <hibernate.version>2.4.2.Final</hibernate.version>
+        <reactor.version>3.7.0</reactor.version>
+
+        <project.basedir>/Users/sasha/IdeaProjects/Training</project.basedir>
+        <configuration.images.image.build.contextDir>/Users/sasha/IdeaProjects/Training
+        </configuration.images.image.build.contextDir>
+        <jkube.generator.name>aftertheparty/training:1.0.3</jkube.generator.name>
+        <docker-image-name>training</docker-image-name>
+        <docker.repo>aftertheparty</docker.repo>
+        <docker.registry>docker.io</docker.registry>
+        <docker.skip.tag>true</docker.skip.tag>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.36</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <!--            <version>${spring-boot.version}</version>-->
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
+            <version>${micrometer.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <version>${micrometer.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>r2dbc-postgresql</artifactId>
+            <version>${r2dbc-postgresql.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.115.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-redis</artifactId>
+            <version>6.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-r2dbc</artifactId>
+            <!--            <version>${spring-boot.version}</version>-->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <!--            <version>${spring-boot.version}</version>-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-netty</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <!--            <version>${spring-boot.version}</version>-->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+            <!--            <version>${spring-boot.version}</version>-->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>8.5.14</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>2.0.16</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.17.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.joselion</groupId>
+            <artifactId>spring-r2dbc-relationships</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <layers>
+                        <enabled>true</enabled>
+                    </layers>
+                    <image>
+                        <!--                        <buildpacks>-->
+                        <!--                            <buildpack>gcr.io/paketo-buildpacks/amazon-corretto:latest</buildpack>-->
+                        <!--                            <buildpack>paketo-buildpacks/java</buildpack>-->
+                        <!--                        </buildpacks>-->
+                        <!--                        <pullPolicy>IF_NOT_PRESENT</pullPolicy>-->
+                        <!--                        <imagePlatform>linux/arm64</imagePlatform>-->
+                        <!--                        <tags>1.0.2</tags>-->
+                        <verboseLogging>true</verboseLogging>
+                        <name>aftertheparty/training</name>
+                        <publish>true</publish>
+                    </image>
+                    <docker>
+                        <publishRegistry>
+                            <username>!.env.registry-user</username>
+                            <password>!.env.registry-password</password>
+                            <!--                            <token>${registry-token}</token>-->
+                            <url>https://docker.io</url>
+                        </publishRegistry>
+                    </docker>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>exec</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jkube</groupId>
+                <artifactId>kubernetes-maven-plugin</artifactId>
+                <version>1.17.0</version>
+                <configuration>
+                    <images>
+                        <image>
+                            <!--                            <buildOptions>-->
+                            <!--                                <platform>linux/arm64</platform>-->
+                            <!--                            </buildOptions>-->
+                            <name>aftertheparty/training:1.0.10</name>
+                            <build>
+                                <from>eclipse-temurin:21-jre</from>
+                                <!--                                <dockerFile>${project.basedir}/Dockerfile</dockerFile>-->
+                                <assembly>
+                                    <mode>dir</mode>
+                                    <targetDir>/usr/home/app</targetDir>
+                                    <inline>
+                                        <id>copy-jar</id>
+                                        <baseDirectory>/home/home/app</baseDirectory>
+                                        <files>
+                                            <file>
+                                                <source>
+                                                    target/${project.artifactId}-${project.version}-exec.jar
+                                                </source>
+                                                <outputDirectory>.</outputDirectory>
+                                            </file>
+                                        </files>
+                                    </inline>
+                                </assembly>
+                                <workdir>/usr/home/app</workdir>
+                                <cmd>
+                                    java -jar ${project.artifactId}-${project.version}-exec.jar
+                                </cmd>
+                                <ports>
+                                    <port>8081</port>
+                                </ports>
+                            </build>
+                        </image>
+                    </images>
+<!--                    <resources>-->
+<!--                        <serviceAccounts>-->
+<!--                            <serviceAccount>-->
+<!--                                <name>${project.artifactId}</name>-->
+<!--                                <deploymentRef>${project.artifactId}</deploymentRef>-->
+<!--                            </serviceAccount>-->
+<!--                        </serviceAccounts>-->
+<!--                    </resources>-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

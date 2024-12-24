@@ -1,0 +1,4 @@
+spring.r2dbc.url: r2dbc:postgresql://localhost:5432/training
+spring.data.redis.host: localhost
+spring.data.mongodb.host: localhost
+minio.url: http://localhost:9000

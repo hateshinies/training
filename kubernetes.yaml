@@ -1,0 +1,343 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: redis
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: redis
+    template:
+      metadata:
+        labels:
+          app: redis
+      spec:
+        containers:
+          - name: redis
+            image: redis:7.2.3
+            livenessProbe:
+              failureThreshold: 3
+              httpGet:
+                path: /
+                port: 6379
+                scheme: HTTP
+              initialDelaySeconds: 180
+              successThreshold: 1
+            ports:
+              - containerPort: 6379
+                name: "redis"
+            env:
+              - name: REDIS_PASSWORD
+                value: SuperSecretRedisPassword
+        initContainers:
+          - name: redis-init
+            restartPolicy: Always
+            image: redis:7.2.3
+            imagePullPolicy: IfNotPresent
+            ports:
+              - name: http
+                containerPort: 5601
+                protocol: TCP
+            livenessProbe:
+              exec:
+                command:
+                  - sh
+                  - -c
+                  - redis-cli -a SuperSecretRedisPassword ping
+              initialDelaySeconds: 10
+              timeoutSeconds: 5
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: mongo
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: mongo
+    template:
+      metadata:
+        labels:
+          app: mongo
+      spec:
+        containers:
+          - name: mongo
+            image: mongo:8.0.3
+            ports:
+              - containerPort: 27017
+                name: "mongo"
+            env:
+              - name: MONGO_INITDB_ROOT_USERNAME
+                value: mongouser
+              - name: MONGO_INITDB_ROOT_PASSWORD
+                value: password
+              - name: MONGO_INITDB_DATABASE
+                value: mongodb
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: postgres
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: postgres
+    template:
+      metadata:
+        labels:
+          app: postgres
+      spec:
+        containers:
+          - name: postgres
+            image: postgres:13.18
+            ports:
+              - containerPort: 5432
+                name: "postgres"
+            env:
+              - name: POSTGRES_USER
+                value: credentials
+              - name: POSTGRES_PASSWORD
+                value: credentials
+              - name: POSTGRES_DB
+                value: training
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: redis-service
+  spec:
+    type: NodePort
+    selector:
+      app: redis
+    ports:
+      - name: "redis"
+        protocol: TCP
+        port: 6379 #внутренний порт поды
+        targetPort: 6379 #выходной порт сервиса
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: postgres-service
+  spec:
+    type: NodePort
+    selector:
+      app: postgres
+    ports:
+      - name: "postgres"
+        protocol: TCP
+        port: 5432 #внутренний порт поды
+        targetPort: 5432 #выходной порт сервиса
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: mongo-service
+  spec:
+    type: NodePort
+    selector:
+      app: mongo
+    ports:
+      - name: "mongo"
+        protocol: TCP
+        port: 27017
+        targetPort: 27017
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      jkube.eclipse.org/git-commit: aac3c5be9236b263446d7fc82a305b5a8dcdb1e8
+      jkube.eclipse.org/git-branch: main
+    labels:
+      app: training
+      provider: jkube
+      version: 1.0-SNAPSHOT
+      group: greatest.sasha
+      app.kubernetes.io/part-of: greatest.sasha
+      app.kubernetes.io/managed-by: jkube
+      app.kubernetes.io/name: training
+      app.kubernetes.io/version: 1.0-SNAPSHOT
+    name: spring-redis-reactive-websocket
+  spec:
+    ports:
+      - name: sunproxyadmin
+        port: 8081
+        protocol: TCP
+        targetPort: 8081
+    selector:
+
+      app: training
+      provider: jkube
+      group: greatest.sasha
+      app.kubernetes.io/name: training
+      app.kubernetes.io/part-of: greatest.sasha
+      app.kubernetes.io/managed-by: jkube
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      jkube.eclipse.org/git-commit: aac3c5be9236b263446d7fc82a305b5a8dcdb1e8
+      jkube.eclipse.org/git-branch: main
+    labels:
+      app: training
+      provider: jkube
+      version: 1.0-SNAPSHOT
+      group: greatest.sasha
+      app.kubernetes.io/part-of: greatest.sasha
+      app.kubernetes.io/managed-by: jkube
+      app.kubernetes.io/name: training
+      app.kubernetes.io/version: 1.0-SNAPSHOT
+    name: training
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 2
+    selector:
+      matchLabels:
+        app: training
+        provider: jkube
+        group: greatest.sasha
+        app.kubernetes.io/name: training
+        app.kubernetes.io/part-of: greatest.sasha
+        app.kubernetes.io/managed-by: jkube
+    template:
+      metadata:
+        annotations:
+          jkube.eclipse.org/git-commit: aac3c5be9236b263446d7fc82a305b5a8dcdb1e8
+          jkube.eclipse.org/git-branch: main
+        labels:
+          app: training
+          provider: jkube
+          version: 1.0-SNAPSHOT
+          group: greatest.sasha
+          app.kubernetes.io/part-of: greatest.sasha
+          app.kubernetes.io/managed-by: jkube
+          app.kubernetes.io/name: training
+          app.kubernetes.io/version: 1.0-SNAPSHOT
+        name: training
+      spec:
+        containers:
+          - env:
+              - name: KUBERNETES_NAMESPACE
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.namespace
+              - name: HOSTNAME
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.name
+                #MONGO
+              - name: ENV_MONGO_HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: training-secret
+                    key: mongo-host
+              - name: ENV_MONGO_PORT
+                valueFrom:
+                  secretKeyRef:
+                    name: training-secret
+                    key: mongo-port
+              - name: ENV_MONGO_DB
+                valueFrom:
+                  secretKeyRef:
+                    name: training-secret
+                    key: mongo-host
+                #MINIO
+              - name: ENV_MINIO_URL
+                valueFrom:
+                  secretKeyRef:
+                    name: training-secret
+                    key: minio-url
+              - name: ENV_MINIO_NAME
+                valueFrom:
+                  secretKeyRef:
+                    name: training-secret
+                    key: minio-username
+              - name: ENV_MINIO_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: training-secret
+                    key: minio-password
+              - name: ENV_MINIO_BUCKET
+                valueFrom:
+                  secretKeyRef:
+                    name: training-secret
+                    key: minio-bucket
+                #REDIS
+              - name: ENV_REDIS_HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: training-secret
+                    key: redis-host
+              - name: ENV_REDIS_PORT
+                valueFrom:
+                  secretKeyRef:
+                    name: training-secret
+                    key: redis-port
+              - name: ENV_REDIS_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: training-secret
+                    key: redis-password
+                #R2DBC
+              - name: ENV_R2DBC_URL
+                valueFrom:
+                  secretKeyRef:
+                    name: training-secret
+                    key: r2dbc-url
+              - name: ENV_R2DBC_USERNAME
+                valueFrom:
+                  secretKeyRef:
+                    name: training-secret
+                    key: r2dbc-username
+              - name: ENV_R2DBC_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: training-secret
+                    key: r2dbc-password
+            #END SECRETS
+            image: aftertheparty/training:1.0.10
+            imagePullPolicy: IfNotPresent
+            livenessProbe:
+              failureThreshold: 3
+              httpGet:
+                path: /actuator/health
+                port: 8081
+                scheme: HTTP
+              initialDelaySeconds: 180
+              successThreshold: 1
+            name: aftertheparty-training
+            ports:
+              - containerPort: 8081
+                name: sunproxyadmin
+                protocol: TCP
+            readinessProbe:
+              failureThreshold: 3
+              httpGet:
+                path: /actuator/health
+                port: 8081
+                scheme: HTTP
+              initialDelaySeconds: 10
+              successThreshold: 1
+            securityContext:
+              privileged: false
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: training-cm
+  data:
+    application.yml: |-
+      spring.data.mongodb.host: mongo-service
+      spring.data.mongodb.port: 27017
+      spring.data.mongodb.database: mongodb
+      spring.data.redis.host: redis-service
+      spring.data.redis.password: SuperSecretRedisPassword
+      spring.data.redis.port: 6379
+      spring.r2dbc.username: credentials
+      spring.r2dbc.password: credentials
+      spring.r2dbc.url: r2dbc:postgresql://postgres-service:5432/training
+      minio.url: http://minio-service:9000
+      minio.access.name: minio_user
+      minio.access.secret: minio_password
+      minio.bucket.name: bucketdefault

@@ -1,0 +1,33 @@
+# [<snippet app>]
+app:
+  env:
+    redis:
+      port: 6379
+      host: redis-service
+      password: SuperSecretRedisPassword
+
+#app:
+#  envs:
+#    LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB: "INFO"
+#    MINIO_ROOT_USER: "minioadmin"
+# [<endsnippet app>]
+
+env.minio.url: http://minio-service:9000
+env.minio.user: minio_user
+env.minio.password: minio_password
+
+env:
+  redis:
+    port: 27017
+    host: redis-service
+    password: SuperSecretRedisPassword
+
+minio:
+  storageSize: "100Mi"
+
+# [<snippet mysql>]
+mysql:
+  envs:
+    MYSQL_DATABASE: "werf-guide-app"
+  storageSize: "100Mi"
+# [<endsnippet mysql>]

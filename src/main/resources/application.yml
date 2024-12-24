@@ -1,0 +1,57 @@
+#SERVER
+server:
+  port: 8081
+
+#SPRING
+spring:
+  application:
+    name: spring-redis-reactive-websocket
+  cloud:
+    kubernetes:
+      config:
+        namespace: default-namespace
+        sources:
+          - name: training-cm
+            useNameAsPrefix: false
+
+#R2DBC
+spring.r2dbc.username: ${env.r2dbc.username}
+spring.r2dbc.password: ${env.r2dbc.password}
+spring.r2dbc.url: ${env.r2dbc.url}
+spring.r2dbc.pool.enabled: true
+spring.r2dbc.pool.initial-size: 10
+spring.r2dbc.pool.max-idle-time: 1m
+spring.r2dbc.pool.max-size: 30
+spring.data.r2dbc.repositories.enabled: true
+
+#REDIS
+spring.data.redis.host: ${env.redis.host}
+spring.data.redis.port: ${env.redis.port}
+spring.data.redis.password: ${env.redis.password}
+
+#MONGO
+spring.data.mongodb.host: ${env.mongo.host}
+spring.data.mongodb.port: ${env.mongo.port}
+spring.data.mongodb.database: ${env.mongo.db}
+
+#MINIO
+minio.url: ${env.minio.url}
+minio.access.name: ${env.minio.name}
+minio.access.secret: ${env.minio.password}
+minio.bucket.name: ${env.minio.password}
+
+#PROMTHTEUS
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+      maximum-expected-value:
+        http.server.requests: 1s
+  health:
+    mongo:
+      enabled: true
